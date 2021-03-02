@@ -35,8 +35,12 @@ this.posts=posts
     })
   }
 
+
   ngOnDestroy(){
     this.postsSub.unsubscribe();
+  }
+  onDelete(postId: string){
+    this.postsService.deletePost(postId)
   }
 
 }
