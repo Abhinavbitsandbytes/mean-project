@@ -5,7 +5,7 @@ const mongoose = require('mongoose')
 
 const app = express();
 
-mongoose.connect("mongodb+srv://abhinav-kumar_97:M22hyCjhsDXZ4l8M@cluster0.rayrd.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
+mongoose.connect("mongodb+srv://abhinav-kumar_97:M22hyCjhsDXZ4l8M@cluster0.rayrd.mongodb.net/node-angular?retryWrites=true&w=majority")
 .then(()=>{
     console.log("Connected to database!")
 })
@@ -25,9 +25,10 @@ next();
 app.post("/api/posts", (req,res,next)=>{
     const post = new Post({
         title:req.body.title,
-        content:require.body.content
+        content:req.body.content
     });
     console.log(post)
+    post.save()
     res.status(201).json({
         message:'Post added successfully!'
     })
@@ -37,23 +38,14 @@ app.post("/api/posts", (req,res,next)=>{
 app.get('/api/posts',(req, res, next) => {
 console.log('first middleware!')
 
-const posts = [
-    {
-        id:'kkjkjk',
-        title:'first-server-side post',
-        content:'this is coming from the server'
-    },
-    {
-        id:'ihuh',
-        title:'second-server-side post',
-        content:'this is coming from the server!'
-    }
-]
-
-res.status(200).send({
-    message: 'posts fetched successfully',
-    posts:posts
+Post.find().then((documents)=>{
+    res.status(200).send({
+        message: 'posts fetched successfully',
+        posts:documents
+    })
 })
+
+
 });
 
 
