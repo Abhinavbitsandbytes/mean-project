@@ -46,7 +46,11 @@ addPost(title:string, content: string){
 deletePost(postId:string){
     this.http.delete("http://localhost:3000/api/posts/" + postId)
 .subscribe(()=>{
-    console.log('deleted')
+   const updatedPost = this.posts.filter(post =>{
+       return post.id !==postId
+   })
+   this.posts=updatedPost
+   this.postsUpdated.next([...this.posts])
 })
 }
 
