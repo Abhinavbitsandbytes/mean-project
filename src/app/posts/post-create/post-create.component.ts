@@ -15,7 +15,8 @@ export class PostCreateComponent implements OnInit {
   private mode = 'create'
   isLoading=false;
   form:any;
-  post: any
+  post: any;
+  imagePreview:any
 
   private postId: any;
   constructor(public postsService: PostsService, public route: ActivatedRoute) { }
@@ -55,8 +56,11 @@ else{
     const file = (event.target as HTMLInputElement).files![0];
    this.form.patchValue({'image':file})
    this.form.get('image').updateValueAndValidity()
-   console.log(file);
-   console.log(this.form)
+   const reader = new FileReader();
+   reader.onload = () =>{
+     this.imagePreview = reader.result
+   }
+   reader.readAsDataURL(file)
 
   }
 // its a convention to start method name with "on" that are triggered upon events
