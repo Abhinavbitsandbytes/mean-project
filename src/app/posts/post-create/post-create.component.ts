@@ -43,11 +43,11 @@ if(paramMap.has('postId')){
   this.postsService.getPost(this.postId).subscribe(postData =>{
     console.log('post data', postData)
    this.isLoading=false
-    this.post = {id:postData._id, title:postData.title, content:postData.content}
+    this.post = {id:postData._id, title:postData.title, content:postData.content, imagePath:postData.imagePath}
     this.form.setValue({
       'title':this.post.title,
       'content':this.post.content,
-      image:''
+      'image':this.post.imagePath
     })
   })
 }
@@ -81,7 +81,8 @@ else{
       this.postsService.updatePost(
         this.postId,
         this.form.value.title,
-        this.form.value.content
+        this.form.value.content,
+        this.form.value.image
       )
     }
 
