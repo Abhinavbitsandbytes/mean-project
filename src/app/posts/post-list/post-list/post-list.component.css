@@ -2,6 +2,10 @@
     margin-top: 1rem;
     display: block;
 }
+
+mat-paginator{
+    margin-top: 1rem;
+}
 .info-text{
     text-align: center;
 }
